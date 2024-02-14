@@ -16,6 +16,7 @@ def karatsuba(p: int, q: int):
 
         return (left_pq * (10 ** (2 * m2))) + ((lprq_and_rplq) * (10 ** m2)) + right_pq
 
-print(karatsuba(1234,5678))
-print(karatsuba(349,23140))
-print(karatsuba(8459678687678,23))
+if __name__ == "__main__":
+    print(karatsuba(1234,5678))
+    print(karatsuba(349,23140))
+    print(karatsuba(8459678687678,23))
