@@ -2,10 +2,10 @@ class Solution:
     def merge_plus_count(self, nums, left, middle, right):
         left_arr = nums[left:middle]
         right_arr = nums[middle:right]
-        i, j, k = 0, 0, left
-        count = 0
         length_l = len(left_arr)
         length_r = len(right_arr)
+        i, j, k = 0, 0, left
+        count = 0
 
         while i < length_l and j < length_r:
             if left_arr[i] <= right_arr[j]:
@@ -32,7 +32,7 @@ class Solution:
     def globalInversionCount(self, nums, left, right):
         count = 0
 
-        if right - left - 1:
+        if right - left - 1 != 0:
             middle = (left + right) // 2
 
             count += self.globalInversionCount(nums, left, middle)
