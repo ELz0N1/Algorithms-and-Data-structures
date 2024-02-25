@@ -55,3 +55,11 @@ class Solution:
         glob_inv = self.globalInversionCount(nums, 0, length)
 
         return loc_inv == glob_inv
+
+
+#Простое решение
+class Solution:
+    def isIdealPermutation(self, A: List[int]) -> bool:
+        for i in range(len(A)):
+            if abs(A[i] - i) > 1: return False
+        return True
