@@ -1,7 +1,6 @@
 from sys import argv
 from os import chdir, getcwd, popen
 
-# https://github.com/jungejason/git-bisect-run-demo/blob/master/test.sh
 
 if len(argv) != 5:
     print("Not enough arguments were submitted")
