@@ -1,3 +1,6 @@
+import random
+
+
 def division(number: int, divider: int):
     if divider == 0:
         return "Сant be divided by zero"
@@ -17,6 +20,7 @@ def division(number: int, divider: int):
 
 
 if __name__ == "__main__":
-    print(division(0, 2))
-    print(division(3492, 10))
-    print(division(845967868, 5))
+    for i in range(10):
+        A = random.randint(1, 1000000)
+        B = random.randint(1, 1000000)
+        print(f"number = {A}, divider = {B}, result = {division(A, B)}")
