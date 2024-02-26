@@ -32,7 +32,7 @@ class Solution:
     def globalInversionCount(self, nums, left, right):
         count = 0
 
-        if right - left - 1 != 0:
+        if right - left > 1:
             middle = (left + right) // 2
 
             count += self.globalInversionCount(nums, left, middle)
