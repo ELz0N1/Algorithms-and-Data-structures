@@ -146,8 +146,8 @@ def strassenAlgorithm(X, Y):
 
 
 if __name__ == "__main__":
-    # N = random.randint(1, 100)
-    N = 25
+    N = random.randint(1, 100)
+
     first_arr = [[random.randint(1, 100) for i in range(N)] for j in range(N)]
     second_arr = [[random.randint(1, 100) for i in range(N)] for j in range(N)]
 
