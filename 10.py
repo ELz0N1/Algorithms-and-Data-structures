@@ -27,7 +27,6 @@ def countingSort(array, size, col, base):
 
 def radixSort(array):
     size = len(array)
-
     max_col = len(max(array, key=len))
 
     for col in range(max_col):
@@ -61,11 +60,7 @@ def merge(arr, left, mid, right):
         i += 1
 
 
-def merge_sort(arr, left=None, right=None):
-    if left == None and right == None:
-        left = 0
-        right = len(arr)
-
+def merge_sort(arr, left, right):
     if right - left - 1:
         mid = (left + right) // 2
         merge_sort(arr, left, mid)
@@ -79,7 +74,7 @@ if __name__ == '__main__':
     print(f"Unsorted array: {lst}")
 
     radixSort(lst)
-    merge_sort(copy_lst)
+    merge_sort(copy_lst, 0, len(copy_lst))
 
     print(f"LSD Sorted array: {lst}")
     print(f"Merge Sorted array: {copy_lst}")
