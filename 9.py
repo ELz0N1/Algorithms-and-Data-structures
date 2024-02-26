@@ -46,11 +46,6 @@ def recursiveMultipyImplementation(X, Y):
     if len(X) <= 16:
         return multiply(X, Y)
 
-    # if len(X) % 2 != 0:
-    #     add_zeros(X)
-    # if len(Y) % 2 != 0:
-    #     add_zeros(Y)
-
     middle = len(X) // 2
 
     A = [[X[i][j] for j in range(0, middle)] for i in range(0, middle)]
