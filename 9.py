@@ -1,7 +1,5 @@
 import random
 
-MIN_SIZE = 64
-
 
 # classic multiply
 def multiply(X, Y):
@@ -13,51 +11,6 @@ def multiply(X, Y):
                 result[i][j] += X[i][k] * Y[k][j]
 
     return result
-
-
-def create_matrix(part1, part2, part3, part4):
-    middle = len(part1)
-    n = middle * 2
-    ans_matrix = [[0] * n for _ in range(n)]
-    for i in range(middle):
-        for j in range(middle):
-            ans_matrix[i][j] = part1[i][j]
-    for i in range(middle):
-        for j in range(middle):
-            ans_matrix[i][j + middle] = part2[i][j]
-    for i in range(middle):
-        for j in range(middle):
-            ans_matrix[i + middle][j] = part3[i][j]
-    for i in range(middle):
-        for j in range(middle):
-            ans_matrix[i + middle][j + middle] = part4[i][j]
-    return ans_matrix
-
-
-def culculate_size(n):
-    i = 1
-    pivot = n
-    while pivot % i == 0:
-        i *= 2
-        pivot //= 2
-    while pivot > MIN_SIZE:
-        i *= 2
-        pivot = (pivot + 1) / 2
-    size = n + i - (n % i)
-    return size
-
-
-def add_zeros_to_matrix(matrix, size):
-    n = len(matrix)
-    for i in range(n):
-        matrix[i] += [0] * (size - n)
-    matrix += [[0] * size for _ in range(size - n)]
-
-
-def preparation_matrix(matrix1, matrix2):
-    size = culculate_size(len(matrix1))
-    add_zeros_to_matrix(matrix1, size)
-    add_zeros_to_matrix(matrix2, size)
 
 
 # 8 recursive multiply
