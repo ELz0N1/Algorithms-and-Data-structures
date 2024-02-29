@@ -7,14 +7,11 @@ def division(number: int, divider: int):
 
     remainer, integer = 0, 0
 
-    while number > 0:
+    while number > divider:
         number -= divider
         integer += 1
 
-    if number < 0:
-        remainer = number + divider
-    else:
-        remainer = number
+    remainer = number
 
     return integer, remainer
 
