@@ -1,7 +1,6 @@
 from sys import argv
 from os import chdir, getcwd, popen
 
-
 if len(argv) != 5:
     print("Not enough arguments were submitted")
     exit(1)
@@ -19,7 +18,7 @@ while left + 1 < right:
     pivot = (right + left) // 2
     popen(f"git checkout {commits[pivot]} -q")
     popen(command)
-    code = int(popen("echo $?").read())
+    code = int((popen("echo $?")).read())
 
     if code == 0:
         left = pivot
@@ -27,4 +26,4 @@ while left + 1 < right:
         right = pivot
 
 chdir(curr_path)
-print(f"First bad commit: {commits[left]}")
+print(f"First bad commit is: {commits[left]}")
