@@ -2,8 +2,7 @@ import random
 
 
 def HoareQuickSort(array, low, high):
-    if high <= low:
-        return
+    if high <= low: return
 
     i, j = low, high
     pivot = array[random.randint(low, high - 1)]
@@ -13,8 +12,7 @@ def HoareQuickSort(array, low, high):
             i += 1
         while i <= j and array[j] > pivot:
             j -= 1
-        if i >= j:
-            break
+        if i >= j: break
 
         array[i], array[j] = array[j], array[i]
         i += 1
@@ -25,12 +23,11 @@ def HoareQuickSort(array, low, high):
 
 
 def LomutoQuickSort(array, low, high):
-    if high <= low:
-        return
+    if high <= low: return
 
     i, j = low, low
-    r = random.randint(low, high - 1)
-    array[low], array[r] = array[r], array[low]
+    pivot_idx = random.randint(low, high - 1)
+    array[low], array[pivot_idx] = array[pivot_idx], array[low]
     pivot = array[low]
 
     for k in range(low + 1, high):
