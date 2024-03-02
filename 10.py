@@ -1,5 +1,5 @@
 from random import choice
-from string import ascii_lowercase
+from string import printable
 
 
 def countingSort(array, size, col, base):
@@ -30,7 +30,7 @@ def radixSort(array):
     max_col = len(max(array, key=len))
 
     for col in range(max_col):
-        array = countingSort(array, size, col, 26)
+        array = countingSort(array, size, col, 256)
 
     return array
 
@@ -69,7 +69,7 @@ def merge_sort(arr, left, right):
 
 
 if __name__ == '__main__':
-    lst = [''.join(choice(ascii_lowercase) for _ in range(10)) for _ in range(5)]
+    lst = [''.join(choice(printable) for _ in range(10)) for _ in range(5)]
     copy_lst = lst
     print(f"Unsorted array: {lst}")
 
