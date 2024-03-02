@@ -80,3 +80,4 @@ if __name__ == '__main__':
     print(f"Merge Sorted array: {copy_lst}")
 
     print(lst == copy_lst)
+
