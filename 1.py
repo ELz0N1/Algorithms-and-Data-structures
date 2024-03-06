@@ -8,8 +8,9 @@ def divide(number: int, divider: int):
     integer, remainer = 0, 0
 
     for digit in str(number):
-        current = int(digit) + remainer * 10
         int_digit = 0
+        current = int(digit) + remainer * 10
+        
 
         while current >= divider:
             current -= divider
