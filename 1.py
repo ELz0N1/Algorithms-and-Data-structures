@@ -1,23 +1,28 @@
 import random
 
 
-def division(number: int, divider: int):
+def divide(number: int, divider: int):
     if divider == 0:
-        return "Сant be divided by zero"
+        raise ValueError("Сan't be divided by zero")
 
-    remainer, integer = 0, 0
+    integer, remainer = 0, 0
 
-    while number > divider:
-        number -= divider
-        integer += 1
+    for digit in str(number):
+        current = int(digit) + remainer * 10
+        int_digit = 0
 
-    remainer = number
+        while current >= divider:
+            current -= divider
+            int_digit += 1
+
+        integer = integer * 10 + int_digit
+        remainer = current
 
     return integer, remainer
 
 
 if __name__ == "__main__":
-    for i in range(10):
-        A = random.randint(1, 1000000)
-        B = random.randint(1, 1000000)
-        print(f"number = {A}, divider = {B}, result = {division(A, B)}")
+    nums = [(random.randint(2 ** 50, 2 ** 100), random.randint(2 ** 50, 2 ** 100)) for i in range(100)]
+
+    for A, B in nums:
+        print(f'{A}, {B}, {(A // B, A % B)} == {divide(A, B)}', (A // B, A % B) == divide(A, B))
