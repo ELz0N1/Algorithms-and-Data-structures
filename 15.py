@@ -27,6 +27,9 @@ class DynamicArray(object):
         if self.length == 0:
             print("Array is empty!")
             return
+        
+        if self.length == self.capacity // 4:
+            self.resize(self.length)
 
         self.arr[self.length - 1] = 0
         self.length -= 1
