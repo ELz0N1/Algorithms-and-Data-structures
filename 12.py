@@ -1,6 +1,27 @@
 import random
 
 
+def LomutoQuickSort(array, low, high):
+    if high <= low: return
+
+    l, h = low, low
+    pivot_idx = random.randint(low, high - 1)
+    array[low], array[pivot_idx] = array[pivot_idx], array[low]
+    pivot = array[low]
+
+    for c in range(low + 1, high):
+        if array[c] < pivot:
+            array[c], array[h + 1], array[l] = array[h + 1], array[l], array[c]
+            l += 1
+            h += 1
+        elif array[c] == pivot:
+            array[h + 1], array[c] = array[c], array[h + 1]
+            h += 1
+
+    LomutoQuickSort(array, low, l)
+    LomutoQuickSort(array, h + 1, high)
+
+
 def HoareQuickSort(array, low, high):
     if high <= low: return
 
@@ -20,27 +41,6 @@ def HoareQuickSort(array, low, high):
 
     HoareQuickSort(array, low, i)
     HoareQuickSort(array, j + 1, high)
-
-
-def LomutoQuickSort(array, low, high):
-    if high <= low: return
-
-    i, j = low, low
-    pivot_idx = random.randint(low, high - 1)
-    array[low], array[pivot_idx] = array[pivot_idx], array[low]
-    pivot = array[low]
-
-    for k in range(low + 1, high):
-        if array[k] < pivot:
-            array[k], array[j + 1], array[i] = array[j + 1], array[i], array[k]
-            i += 1
-            j += 1
-        elif array[k] == pivot:
-            array[j + 1], array[k] = array[k], array[j + 1]
-            j += 1
-
-    LomutoQuickSort(array, low, i)
-    LomutoQuickSort(array, j + 1, high)
 
 
 if __name__ == '__main__':
