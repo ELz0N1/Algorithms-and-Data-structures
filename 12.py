@@ -25,7 +25,7 @@ def LomutoQuickSort(array, low, high):
 def HoareQuickSort(array, low, high):
     if high <= low: return
 
-    i, j = low, high
+    i, j = low, high - 1
     pivot = array[random.randint(low, high - 1)]
 
     while True:
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     print(f'unsorted: {nums}')
 
     LomutoQuickSort(nums, 0, len(nums) - 1)
-    HoareQuickSort(copy_nums, 0, len(nums) - 1)
+    HoareQuickSort(copy_nums, 0, len(nums))
 
     print(f'lomute: {nums}')
     print(f'hoare: {copy_nums}')
