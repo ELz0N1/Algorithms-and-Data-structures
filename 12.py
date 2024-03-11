@@ -48,7 +48,7 @@ if __name__ == '__main__':
     copy_nums = nums
     print(f'unsorted: {nums}')
 
-    LomutoQuickSort(nums, 0, len(nums) - 1)
+    LomutoQuickSort(nums, 0, len(nums))
     HoareQuickSort(copy_nums, 0, len(nums))
 
     print(f'lomute: {nums}')
