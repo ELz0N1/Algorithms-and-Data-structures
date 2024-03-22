@@ -1,6 +1,11 @@
 from random import randint
 
 
+def naiveImp(array, K):
+    array.sort()
+    return array[K]
+
+
 def kthQuickSort(array, low, high, K):
     if len(array) == 1: return array[low]
 
@@ -28,7 +33,10 @@ def kthQuickSort(array, low, high, K):
 
 
 if __name__ == '__main__':
-    nums = [randint(1, 100) for i in range(randint(1, 50))]
-    result = kthQuickSort(nums, 0, len(nums), len(nums) // 2)
-    print(f"{result} is median for an array:")
-    print(sorted(nums))
+    for j in range(101):
+        nums = [randint(1, 100) for i in range(randint(1, 50))]
+
+        result = kthQuickSort(nums, 0, len(nums), len(nums) // 2)
+        naive_result = naiveImp(nums, len(nums) // 2)
+
+        print(f"{result} == {naive_result}? {result == naive_result}")
