@@ -60,76 +60,81 @@ class BinomialHeap:
         parent = node.parent
         while parent is not None and node.value < parent.value:
             node.value, parent.value = parent.value, node.value
-            # node, parent = parent, node
+            node, parent = parent, node
 
     def __len__(self):
         return self.count
 
 
-class Test:
-    def insert_and_extract_min():
-        heap = BinomialHeap()
-        heap.insert(8)
-        heap.insert(2)
-        heap.insert(6)
+#Tests
+def insert_and_extract_min():
+    heap = BinomialHeap()
+    heap.insert(8)
+    heap.insert(2)
+    heap.insert(6)
 
-        assert heap.extract_min() == 2
-        assert heap.extract_min() == 6
-        assert heap.extract_min() == 8
+    assert heap.extract_min() == 2
+    assert heap.extract_min() == 6
+    assert heap.extract_min() == 8
+    assert heap.is_empty()
 
-        assert heap.is_empty()
 
-    def peek_min():
-        heap = BinomialHeap()
-        heap.insert(8)
-        heap.insert(2)
-        heap.insert(6)
-        assert heap.peek_min() == 2
+def peek_min():
+    heap = BinomialHeap()
+    heap.insert(8)
+    heap.insert(2)
+    heap.insert(6)
+    assert heap.peek_min() == 2
 
-    def decrease_key():
-        heap = BinomialHeap()
-        node_to_decrease = heap.insert(3)
-        assert heap.peek_min() == 3
-        heap.decrease_key(node_to_decrease, 1)
-        assert heap.peek_min() == 1
 
-    def delete():
-        heap = BinomialHeap()
-        node_to_delete = heap.insert(9)
-        heap.insert(4)
-        heap.delete(node_to_delete)
+def decrease_key():
+    heap = BinomialHeap()
+    node_to_decrease = heap.insert(3)
+    assert heap.peek_min() == 3
+    heap.decrease_key(node_to_decrease, 1)
+    assert heap.peek_min() == 1
 
-        assert heap.peek_min() == 4
-        assert heap.extract_min() == 4
 
-        assert heap.is_empty()
+def delete():
+    heap = BinomialHeap()
+    node_to_delete = heap.insert(9)
+    heap.insert(4)
+    heap.delete(node_to_delete)
 
-    def merge():
-        heap1 = BinomialHeap()
-        heap2 = BinomialHeap()
-        heap1.insert(1)
-        heap1.insert(3)
-        heap1.insert(2)
-        heap1.insert(4)
+    assert heap.peek_min() == 4
+    assert heap.extract_min() == 4
 
-        heap2.insert(5)
-        heap2.insert(6)
-        heap2.insert(7)
-        heap2.insert(8)
+    assert heap.is_empty()
 
-        heap1.merge(heap2)
 
-        assert heap1.extract_min() == 1
-        assert heap1.extract_min() == 2
-        assert heap1.extract_min() == 3
-        assert heap1.extract_min() == 4
-        assert heap1.extract_min() == 5
-        assert heap1.extract_min() == 6
-        assert heap1.extract_min() == 7
-        assert heap1.extract_min() == 8
+def merge():
+    heap1 = BinomialHeap()
+    heap2 = BinomialHeap()
+    heap1.insert(1)
+    heap1.insert(3)
+    heap1.insert(2)
+    heap1.insert(4)
 
-        assert heap1.is_empty()
+    heap2.insert(5)
+    heap2.insert(6)
+    heap2.insert(7)
+    heap2.insert(8)
 
+    heap1.merge(heap2)
+
+    assert heap1.extract_min() == 1
+    assert heap1.extract_min() == 2
+    assert heap1.extract_min() == 3
+    assert heap1.extract_min() == 4
+    assert heap1.extract_min() == 5
+    assert heap1.extract_min() == 6
+    assert heap1.extract_min() == 7
+    assert heap1.extract_min() == 8
+
+    assert heap1.is_empty()
+
+
+if __name__ == "__main__":
     insert_and_extract_min()
     peek_min()
     decrease_key()
@@ -137,6 +142,3 @@ class Test:
     merge()
 
     print("All tests passed")
-
-
-Test()
