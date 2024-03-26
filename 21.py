@@ -39,6 +39,7 @@ class BinomialHeap:
             raise ValueError("New value is greater than current value")
         node.value = new_value
         self.sift_up(node)
+        self.find_min()
 
     def merge(self, other_heap):
         self.trees.extend(other_heap.trees)
@@ -47,7 +48,6 @@ class BinomialHeap:
 
     def delete(self, node):
         self.decrease_key(node, float('-inf'))
-        self.find_min()
         self.extract_min()
 
     def find_min(self):
