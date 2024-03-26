@@ -1,4 +1,4 @@
-class Node:
+class BinomialTree:
     def __init__(self, value):
         self.value = value
         self.parent = None
@@ -9,17 +9,17 @@ class BinomialHeap:
     def __init__(self):
         self.trees = []
         self.min_node = None
-        self.count = 0
+        self.size = 0
 
     def is_empty(self):
         return self.min_node is None
 
     def insert(self, value):
-        node = Node(value)
+        node = BinomialTree(value)
         new_heap = BinomialHeap()
         new_heap.trees.append(node)
         new_heap.min_node = node
-        new_heap.count = 1
+        new_heap.size = 1
         self.merge(new_heap)
         return node
 
@@ -31,7 +31,7 @@ class BinomialHeap:
         self.trees.remove(min_node)
         self.merge(BinomialHeap(*min_node.children))
         self.find_min()
-        self.count -= 1
+        self.size -= 1
         return min_node.value
 
     def decrease_key(self, node, new_value):
@@ -42,7 +42,7 @@ class BinomialHeap:
 
     def merge(self, other_heap):
         self.trees.extend(other_heap.trees)
-        self.count += other_heap.count
+        self.size += other_heap.size
         self.find_min()
 
     def delete(self, node):
@@ -60,13 +60,12 @@ class BinomialHeap:
         parent = node.parent
         while parent is not None and node.value < parent.value:
             node.value, parent.value = parent.value, node.value
-            node, parent = parent, node
 
     def __len__(self):
-        return self.count
+        return self.size
 
 
-#Tests
+# Tests
 def insert_and_extract_min():
     heap = BinomialHeap()
     heap.insert(8)
@@ -89,10 +88,19 @@ def peek_min():
 
 def decrease_key():
     heap = BinomialHeap()
-    node_to_decrease = heap.insert(3)
-    assert heap.peek_min() == 3
-    heap.decrease_key(node_to_decrease, 1)
+    heap.insert(1)
+    heap.insert(2)
+    heap.insert(3)
+    heap.insert(4)
+    heap.insert(5)
+    node = heap.insert(6)
+    heap.insert(7)
     assert heap.peek_min() == 1
+    heap.decrease_key(node, 0)
+    heap.insert(8)
+    heap.insert(9)
+    heap.insert(10)
+    assert heap.peek_min() == 0
 
 
 def delete():
@@ -141,4 +149,4 @@ if __name__ == "__main__":
     delete()
     merge()
 
-    print("All tests passed")
+    print("Tests passed")
