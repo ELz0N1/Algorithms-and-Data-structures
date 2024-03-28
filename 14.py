@@ -39,4 +39,6 @@ if __name__ == '__main__':
         result = kthQuickSort(nums, 0, len(nums), len(nums) // 2)
         naive_result = naiveImp(nums, len(nums) // 2)
 
-        print(f"{result} == {naive_result}? {result == naive_result}")
+        assert result == naive_result
+
+    print("All tests passed")
