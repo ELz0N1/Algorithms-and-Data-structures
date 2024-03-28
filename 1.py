@@ -11,10 +11,9 @@ def divide(number: int, divider: int):
         int_digit = 0
         current = int(digit) + remainer * 10
 
-        for i in range(9, 0, -1):
-            if current >= i * divider:
-                current = current - (i * divider)
-                int_digit += i
+        while current >= divider:
+            current -= divider
+            int_digit += 1
 
         integer = integer * 10 + int_digit
         remainer = current
@@ -26,4 +25,7 @@ if __name__ == "__main__":
     nums = [(random.randint(2 ** 50, 2 ** 100), random.randint(2 ** 50, 2 ** 100)) for i in range(100)]
 
     for A, B in nums:
-        print(f'{A}, {B}, {(A // B, A % B)} == {divide(A, B)}', (A // B, A % B) == divide(A, B))
+        assert (A // B, A % B) == divide(A, B)
+
+    print("All tests passed")
+
