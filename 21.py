@@ -4,6 +4,9 @@ class BinomialTree:
         self.parent = None
         self.children = []
 
+    def __len__(self):
+        return len(self.children)
+
 
 class BinomialHeap:
     def __init__(self):
@@ -29,7 +32,10 @@ class BinomialHeap:
     def extract_min(self):
         min_node = self.min_node
         self.trees.remove(min_node)
-        self.merge(BinomialHeap(*min_node.children))
+        child_heap = BinomialHeap()
+        child_heap.trees = min_node.children
+        child_heap.count = len(min_node)
+        self.merge(child_heap)
         self.find_min()
         self.size -= 1
         return min_node.value
@@ -41,8 +47,48 @@ class BinomialHeap:
         self.sift_up(node)
         self.find_min()
 
+    def merge_tree(self, t1, t2):
+        if t1.value > t2.value:
+            t2.children.append(t1)
+            t1.parent = t2
+            return t2
+        else:
+            t1.children.append(t2)
+            t2.parent = t1
+            return t1
+
     def merge(self, other_heap):
-        self.trees.extend(other_heap.trees)
+        carry = None
+        merged_trees = []
+        for i in range(max(len(self.trees), len(other_heap.trees)) + 1):
+            try:
+                tree1 = self.trees[i]
+            except IndexError:
+                tree1 = None
+
+            try:
+                tree2 = other_heap.trees[i]
+            except IndexError:
+                tree2 = None
+
+            if tree1 is not None and tree2 is not None and carry is not None:
+                merged_trees.append(carry)
+                carry = self.merge_tree(tree1, tree2)
+            elif tree1 is not None and tree2 is not None:
+                carry = self.merge_tree(tree1, tree2)
+            elif tree1 is not None and carry is not None:
+                carry = self.merge_tree(tree1, carry)
+            elif tree2 is not None and carry is not None:
+                carry = self.merge_tree(tree2, carry)
+            elif tree1 is not None:
+                merged_trees.append(tree1)
+            elif tree2 is not None:
+                merged_trees.append(tree2)
+            elif carry is not None:
+                merged_trees.append(carry)
+                carry = None
+
+        self.trees = merged_trees
         self.size += other_heap.size
         self.find_min()
 
