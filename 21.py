@@ -61,25 +61,21 @@ class BinomialHeap:
         carry = None
         merged_trees = []
         for i in range(max(len(self.trees), len(other_heap.trees)) + 1):
-            try:
-                tree1 = self.trees[i]
-            except IndexError:
-                tree1 = None
-
-            try:
-                tree2 = other_heap.trees[i]
-            except IndexError:
-                tree2 = None
+            tree1 = self.trees[i] if i < len(self.trees) else None
+            tree2 = other_heap.trees[i] if i < len(other_heap.trees) else None
 
             if tree1 is not None and tree2 is not None and carry is not None:
                 merged_trees.append(carry)
                 carry = self.merge_tree(tree1, tree2)
             elif tree1 is not None and tree2 is not None:
                 carry = self.merge_tree(tree1, tree2)
+                merged_trees.append(None)
             elif tree1 is not None and carry is not None:
                 carry = self.merge_tree(tree1, carry)
+                merged_trees.append(None)
             elif tree2 is not None and carry is not None:
                 carry = self.merge_tree(tree2, carry)
+                merged_trees.append(None)
             elif tree1 is not None:
                 merged_trees.append(tree1)
             elif tree2 is not None:
@@ -139,8 +135,8 @@ def decrease_key():
     heap.insert(3)
     heap.insert(4)
     heap.insert(5)
-    node = heap.insert(6)
-    heap.insert(7)
+    heap.insert(6)
+    node = heap.insert(7)
     assert heap.peek_min() == 1
     heap.decrease_key(node, 0)
     heap.insert(8)
