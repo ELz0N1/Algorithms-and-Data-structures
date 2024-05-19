@@ -20,13 +20,13 @@ def partition(array, pivot_index):
     n = len(array) - 1
     pivot = array[pivot_index]
     array[pivot_index], array[n] = array[n], array[pivot_index]
-    store_index = 0
-    for i in range(n):
-        if array[i] < pivot:
-            array[store_index], array[i] = array[i], array[store_index]
-            store_index += 1
-    array[store_index], array[n] = array[n], array[store_index]
-    return store_index
+    i = 0
+    for j in range(n):
+        if array[j] < pivot:
+            array[i], array[j] = array[j], array[i]
+            i += 1
+    array[i], array[n] = array[n], array[i]
+    return i
 
 
 def tests():
