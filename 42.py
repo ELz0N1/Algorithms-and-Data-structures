@@ -53,19 +53,17 @@ class Treap:
             self.update(node)
             return node, rr
 
-    def insert(self, treap, val, pos):
-        r, l = self.split(treap, pos - 1)
+    def insert(self, val, pos):
+        r, l = self.split(self.root, pos - 1)
         priority = self.gen_prio()
         node = self.TreapNode(priority, val, 1, val)
         r = self.merge(r, node)
-        r = self.merge(r, l)
-        return r
+        self.root = self.merge(r, l)
 
     def erase(self, root, pos):
         l, r = self.split(root, pos - 1)
         rl, rr = self.split(r, 1)
-        root = self.merge(l, rr)
-        return root
+        self.root = self.merge(l, rr)
 
     def sum(self, _from, to):
         l, r = self.split(self.root, _from - 1)
@@ -78,7 +76,6 @@ class Treap:
         self.root = nodes[0]
         for i in range(1, n):
             self.root = self.merge(self.root, nodes[i])
-        return self.root
 
     def update(self, root):
         rank_left = 0 if not root.left else root.left.rank
@@ -101,7 +98,7 @@ class Tests(unittest.TestCase):
         values = [1, 2, 3]
         treap = Treap()
         treap.make(values)
-        treap.insert(treap.root, 4, 4)
+        treap.insert(4, 4)
         expected = 7
         self.assertEqual(expected, treap.sum(3, 4))
 
