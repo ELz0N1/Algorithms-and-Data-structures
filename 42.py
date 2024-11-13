@@ -4,11 +4,11 @@ from random import randint
 
 class Treap:
     class TreapNode:
-        def __init__(self, priority, val, rank, summa):
+        def __init__(self, priority, val, rank=1):
             self.priority = priority
             self.key = val
             self.rank = rank
-            self.sum = summa
+            self.sum = val
             self.right = None
             self.left = None
 
@@ -22,6 +22,12 @@ class Treap:
             p = randint(0, 2 ** 32 - 1)
         self.priorities.add(p)
         return p
+
+    def get_rank(self, root):
+        return 0 if not root else root.rank
+
+    def get_sum(self, root):
+        return 0 if not root else root.sum
 
     def merge(self, node1, node2):
         if not node1:
@@ -41,7 +47,7 @@ class Treap:
         if not node:
             return [None, None]
 
-        l = 0 if not node.left else node.left.rank
+        l = self.get_rank(node.left)
         if k <= l:
             ll, lr = self.split(node.left, k)
             node.left = lr
@@ -56,7 +62,7 @@ class Treap:
     def insert(self, val, pos):
         r, l = self.split(self.root, pos - 1)
         priority = self.gen_prio()
-        node = self.TreapNode(priority, val, 1, val)
+        node = self.TreapNode(priority, val)
         r = self.merge(r, node)
         self.root = self.merge(r, l)
 
@@ -68,22 +74,21 @@ class Treap:
     def sum(self, _from, to):
         l, r = self.split(self.root, _from - 1)
         rl, rr = self.split(r, to - _from + 1)
-        return rl.sum
+        result = self.get_sum(rl)
+        l = self.merge(l, rl)
+        self.root = self.merge(l, rr)
+        return result
 
     def make(self, values):
         n = len(values)
-        nodes = [self.TreapNode(self.gen_prio(), values[i], 1, values[i]) for i in range(n)]
+        nodes = [self.TreapNode(self.gen_prio(), values[i]) for i in range(n)]
         self.root = nodes[0]
         for i in range(1, n):
             self.root = self.merge(self.root, nodes[i])
 
     def update(self, root):
-        rank_left = 0 if not root.left else root.left.rank
-        rank_right = 0 if not root.right else root.right.rank
-        sum_left = 0 if not root.left else root.left.sum
-        sum_right = 0 if not root.right else root.right.sum
-        root.sum = sum_left + sum_right + root.key
-        root.rank = 1 + rank_left + rank_right
+        root.sum = self.get_sum(root.left) + self.get_sum(root.right) + root.key
+        root.rank = self.get_rank(root.left) + self.get_rank(root.right) + 1
 
 
 class Tests(unittest.TestCase):
@@ -116,6 +121,13 @@ class Tests(unittest.TestCase):
         treap.erase(treap.root, 3)
         expected = 15
         self.assertEqual(expected, treap.sum(1, 5))
+
+    def testSumDoesntBreakTreap(self):
+        values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        treap = Treap()
+        treap.make(values)
+        self.assertEqual(15, treap.sum(1, 5))
+        self.assertEqual(55, treap.sum(1, 10))
 
 
 unittest.main()
